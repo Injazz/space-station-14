@@ -215,6 +215,8 @@ namespace Content.Shared.Construction
             Metal,
             Glass,
             Cable,
+            TableParts,
+            RackParts,
         }
     }
 }

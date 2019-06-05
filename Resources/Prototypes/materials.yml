@@ -17,3 +17,21 @@
   electricresistivity: 1.0e+13
   thermalconductivity: 0.9
   specificheat: 840
+
+- type: material
+  id: tableparts
+  name: Table Parts
+  icon: Objects/table_parts.png
+  density: 7700
+  electricresistivity: 6.9e-7
+  thermalconductivity: 18
+  specificheat: 500
+
+- type: material
+  id: rackparts
+  name: Rack Parts
+  icon: Objects/rack_parts.png
+  density: 7700
+  electricresistivity: 6.9e-7
+  thermalconductivity: 18
+  specificheat: 500

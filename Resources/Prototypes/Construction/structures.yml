@@ -29,5 +29,16 @@
   result: table
   placementmode: SnapgridCenter
   steps:
-  - material: Metal
-    amount: 2
+  - material: TableParts
+    amount: 1
+
+- type: construction
+  name: Rack
+  id: rack
+  category: Structures
+  icon: Buildings/rack.png
+  result: rack
+  placementmode: SnapgridCenter
+  steps:
+  - material: RackParts
+    amount: 1

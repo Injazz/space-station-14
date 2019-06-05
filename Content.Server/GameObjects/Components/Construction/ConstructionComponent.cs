@@ -170,7 +170,9 @@ namespace Content.Server.GameObjects.Components.Construction
         {
             { StackType.Cable, MaterialType.Cable },
             { StackType.Glass, MaterialType.Glass },
-            { StackType.Metal, MaterialType.Metal }
+            { StackType.Metal, MaterialType.Metal },
+            { StackType.TableParts, MaterialType.TableParts },
+            { StackType.RackParts, MaterialType.RackParts }
         };
 
         // Really this should check the actual materials at play..

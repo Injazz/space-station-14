@@ -26,3 +26,27 @@
   - type: Destructible
     thresholdvalue: 50
     spawnondestroy: TableParts
+
+- type: entity
+  id: rack
+  name: Rack
+  description: Different from the Middle Ages version.
+  components:
+  - type: Clickable
+  - type: PlaceableSurface
+  - type: Sprite
+    texture: Buildings/rack.png
+
+  - type: Icon
+    texture: Buildings/rack.png
+
+  - type: BoundingBox
+  - type: Collidable
+
+  - type: SnapGrid
+    offset: Center
+
+  - type: Damageable
+  - type: Destructible
+    thresholdvalue: 50
+    spawnondestroy: RackParts

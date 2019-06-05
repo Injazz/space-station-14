@@ -66,3 +66,53 @@
     color: red
   - type: Icon
     texture: Objects/cable_coil.png
+
+- type: entity
+  name: Table Parts
+  parent: MaterialStack
+  id: TableParts
+  description: Parts of a table.
+  components: 
+  - type: Material
+    materials:
+    - key: enum.MaterialKeys.Stack
+      mat: tableparts
+  - type: Stack
+    stacktype: enum.StackType.TableParts
+    count: 1
+  - type: Sprite
+    sprite: Objects/table_parts.rsi
+    state: icon
+
+  - type: Icon
+    sprite: Objects/table_parts.rsi
+    state: icon
+
+  - type: Item
+    Size: 25
+    sprite: Objects/table_parts.rsi
+
+- type: entity
+  name: Rack Parts
+  parent: MaterialStack
+  id: RackParts
+  description: Parts of a rack.
+  components: 
+  - type: Material
+    materials:
+    - key: enum.MaterialKeys.Stack
+      mat: rackparts
+  - type: Stack
+    stacktype: enum.StackType.RackParts
+    count: 1
+  - type: Sprite
+    sprite: Objects/rack_parts.rsi
+    state: icon
+
+  - type: Icon
+    sprite: Objects/rack_parts.rsi
+    state: icon
+
+  - type: Item
+    Size: 25
+    sprite: Objects/rack_parts.rsi

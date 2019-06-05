@@ -184,6 +184,14 @@ namespace Content.Client.Construction
                                     icon = ResourceCache.GetResource<TextureResource>("/Textures/Objects/cable_coil.png");
                                     text = $"Cable Coil x{mat.Amount}";
                                     break;
+                                case ConstructionStepMaterial.MaterialType.TableParts:
+                                    icon = ResourceCache.GetResource<RSIResource>("/Textures/Objects/table_parts.rsi").RSI["icon"].Frame0;
+                                    text = $"Table Parts x{mat.Amount}";
+                                    break;
+                                case ConstructionStepMaterial.MaterialType.RackParts:
+                                    icon = ResourceCache.GetResource<RSIResource>("/Textures/Objects/rack_parts.rsi").RSI["icon"].Frame0;
+                                    text = $"Rack Parts x{mat.Amount}";
+                                    break;
                                 default:
                                     throw new NotImplementedException();
                             }
