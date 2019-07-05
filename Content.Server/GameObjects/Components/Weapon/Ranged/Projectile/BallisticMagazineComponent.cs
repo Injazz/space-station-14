@@ -135,6 +135,6 @@ namespace Content.Server.GameObjects.Components.Weapon.Ranged.Projectile
     public enum BallisticMagazineType
     {
         Unspecified = 0,
-        A12mm,
+        A12mm
     }
 }

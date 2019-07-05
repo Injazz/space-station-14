@@ -48,3 +48,18 @@
     sprite: Objects/items/ammo_casing.rsi
     state: s-casing
 
+- type: entity
+  id: ammo_casing_rocket
+  name: "Rocket"
+  parent: BaseItem
+  components:
+  - type: BallisticBullet
+    caliber: Rocket
+    projectile: ProjectileRocket
+  - type: Sprite
+    sprite: Objects/items/ammo_casing.rsi
+    state: s-casing
+    drawdepth: FloorObjects
+  - type: Icon
+    sprite: Objects/items/ammo_casing.rsi
+    state: s-casing

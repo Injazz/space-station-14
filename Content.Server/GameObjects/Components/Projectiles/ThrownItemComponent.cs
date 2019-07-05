@@ -5,6 +5,7 @@ using Content.Shared.Physics;
 using Robust.Server.GameObjects;
 using Robust.Shared.Interfaces.GameObjects;
 using Robust.Shared.Interfaces.GameObjects.Components;
+using Robust.Shared.Serialization;
 
 namespace Content.Server.GameObjects.Components
 {
@@ -12,13 +13,21 @@ namespace Content.Server.GameObjects.Components
     {
         public override string Name => "ThrownItem";
 
+        public int Damage;
+
+        public override void ExposeData(ObjectSerializer serializer)
+        {
+            base.ExposeData(serializer);
+            serializer.DataField(ref Damage, "damage", 0);
+        }
+
         void ICollideBehavior.CollideWith(List<IEntity> collidedwith)
         {
             foreach (var entity in collidedwith)
             {
                 if (entity.TryGetComponent(out DamageableComponent damage))
                 {
-                    damage.TakeDamage(DamageType.Brute, 10);
+                    damage.TakeDamage(DamageType.Brute, Damage);
                 }
             }
 

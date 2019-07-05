@@ -1,16 +1,23 @@
 ﻿using System.Collections.Generic;
 using Robust.Server.GameObjects;
+using Robust.Shared.IoC;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Interfaces.GameObjects;
 using Robust.Shared.Interfaces.Physics;
 using Robust.Shared.Interfaces.GameObjects.Components;
 using Content.Server.GameObjects.Components.Mobs;
+using Content.Server.GameObjects.EntitySystems;
 using Content.Shared.GameObjects;
+
 
 namespace Content.Server.GameObjects.Components.Projectiles
 {
     public class ProjectileComponent : Component, ICollideSpecial, ICollideBehavior
     {
+#pragma warning disable 649        
+        [Dependency] private readonly IEntitySystemManager _entitySystemManager;
+#pragma warning restore 649
+
         public override string Name => "Projectile";
 
         public bool IgnoreShooter = true;
@@ -46,13 +53,23 @@ namespace Content.Server.GameObjects.Components.Projectiles
         /// <param name="collidedwith"></param>
         void ICollideBehavior.CollideWith(List<IEntity> collidedwith)
         {
+            var collisionSystem = _entitySystemManager.GetEntitySystem<CollisionSystem>();
+            collisionSystem.HandleCollision(Owner);
             foreach (var entity in collidedwith)
             {
                 if (entity.TryGetComponent(out DamageableComponent damage))
                 {
-                    damage.TakeDamage(DamageType.Brute, 10);
+                    if (damages.Count > 0)
+                    {
+                        foreach(var damageSpecific in damages)
+                        {
+                            damage.TakeDamage(damageSpecific.Key, damageSpecific.Value);
+                        }
+                    } else {
+                        damage.TakeDamage(DamageType.Brute, 5);
+                    }
                 }
-
+                collisionSystem.HandleCollisionWith(Owner, entity);
                 if (entity.TryGetComponent(out CameraRecoilComponent recoilComponent)
                     && Owner.TryGetComponent(out PhysicsComponent physicsComponent))
                 {

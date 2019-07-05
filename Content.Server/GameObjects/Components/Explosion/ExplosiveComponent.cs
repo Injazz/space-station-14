@@ -45,7 +45,7 @@ namespace Content.Server.GameObjects.Components.Explosive
             serializer.DataField(ref FlashRange, "flashRange", 0);
         }
 
-        private bool Explosion()
+        public bool Explosion()
         {
             var maxRange = MathHelper.Max(DevastationRange, HeavyImpactRange, LightImpactRange, 0f);
             //Entity damage calculation

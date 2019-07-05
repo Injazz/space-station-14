@@ -18,3 +18,31 @@
   - type: Collidable
     hard: false
     mask: 3
+
+- type: entity
+  id: ProjectileRocket
+  name: ProjectileRocket
+  description: If you can see this you're DEAD!
+  components:
+  - type: Sprite
+    directional: false
+    texture: Objects/projectilebullet.png
+    #rotation: -180
+
+  - type: Icon
+    texture: Objects/projectilebullet.png
+  - type: BoundingBox
+    aabb: -0.2,-0.2,0.2,0.2
+  - type: Physics
+    edgeslide: false
+  - type: Projectile
+  - type: Rocket
+  - type: Explosive
+    devastationRange: 1
+    heavyImpactRange: 3
+    lightImpactRange: 5
+    flashRange: 5
+    
+  - type: Collidable
+    hard: false
+    mask: 3

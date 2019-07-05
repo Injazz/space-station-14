@@ -44,6 +44,8 @@ namespace Content.Server.GameObjects.Components.Weapon.Ranged.Projectile
         private bool _autoEjectMagazine;
         [ViewVariables]
         private AppearanceComponent _appearance;
+        [ViewVariables]
+        private bool _isInternal;
 
         private static readonly Direction[] _randomBulletDirs =
         {
@@ -65,6 +67,7 @@ namespace Content.Server.GameObjects.Components.Weapon.Ranged.Projectile
             serializer.DataField(ref _autoEjectSound, "sound_auto_eject", null);
             serializer.DataField(ref _magInSound, "sound_magazine_in", null);
             serializer.DataField(ref _magOutSound, "sound_magazine_out", null);
+            serializer.DataField(ref _isInternal, "internal", false);
         }
 
         public override void Initialize()
@@ -132,6 +135,46 @@ namespace Content.Server.GameObjects.Components.Weapon.Ranged.Projectile
             return true;
         }
 
+        public bool InsertBullet(IEntity bullet, bool playSound = true)
+        {
+            if (!bullet.TryGetComponent(out BallisticBulletComponent component))
+            {
+                throw new ArgumentException("Not a bullet", nameof(bullet));
+            }
+
+            if (Magazine == null && _isInternal == true)
+            {
+                throw new InvalidOperationException("Internal magazine is NULL.");
+            }
+            if (component.Caliber != Caliber)
+            {
+                throw new ArgumentException("Wrong caliber", nameof(bullet));
+            }
+
+            if (!_magazineSlot.ContainedEntity.TryGetComponent<BallisticMagazineComponent>(out var magazine))
+            {
+                return false;
+            }
+
+
+
+            if (_magInSound != null)
+            {
+                Owner.GetComponent<SoundComponent>().Play(_magInSound);
+            }
+
+            if (GetChambered(0) == null)
+            {
+                LoadIntoChamber(0, bullet);
+            }
+            else if (_isInternal == true)
+            { 
+                magazine.AddBullet(bullet);
+            }
+            _updateAppearance();
+            return true;
+        }
+
         public bool EjectMagazine(bool playSound = true)
         {
             var entity = Magazine;
@@ -192,39 +235,54 @@ namespace Content.Server.GameObjects.Components.Weapon.Ranged.Projectile
 
         public bool UseEntity(UseEntityEventArgs eventArgs)
         {
-            var ret = EjectMagazine();
-            if (ret)
+            if (_isInternal)
             {
-                Owner.PopupMessage(eventArgs.User, "Magazine ejected");
+                CycleChamberedBullet(0);
+                Owner.PopupMessage(eventArgs.User, "Bullet ejected");
             }
             else
             {
-                Owner.PopupMessage(eventArgs.User, "No magazine");
+                var ret = EjectMagazine();
+                if (ret)
+                {
+                    Owner.PopupMessage(eventArgs.User, "Magazine ejected");
+                }
+                else
+                {
+                    Owner.PopupMessage(eventArgs.User, "No magazine");
+                }
             }
-
             return true;
         }
 
         public bool AttackBy(AttackByEventArgs eventArgs)
         {
-            if (!eventArgs.AttackWith.TryGetComponent(out BallisticMagazineComponent component))
+            if (eventArgs.AttackWith.TryGetComponent(out BallisticMagazineComponent magazineComponent))
             {
-                return false;
-            }
+                if (Magazine != null)
+                {
+                    Owner.PopupMessage(eventArgs.User, "Already got a magazine.");
+                    return false;
+                }
 
-            if (Magazine != null)
+                if (magazineComponent.MagazineType != MagazineType || magazineComponent.Caliber != Caliber)
+                {
+                    Owner.PopupMessage(eventArgs.User, "Magazine doesn't fit.");
+                    return false;
+                }
+
+                return InsertMagazine(eventArgs.AttackWith);
+            }
+            if (eventArgs.AttackWith.TryGetComponent(out BallisticBulletComponent bulletComponent))
             {
-                Owner.PopupMessage(eventArgs.User, "Already got a magazine.");
-                return false;
+                if (bulletComponent.Caliber != Caliber)
+                {
+                    Owner.PopupMessage(eventArgs.User, "Bullet doesn't fit.");
+                    return false;
+                }
+                return InsertBullet(eventArgs.AttackWith);
             }
-
-            if (component.MagazineType != MagazineType || component.Caliber != Caliber)
-            {
-                Owner.PopupMessage(eventArgs.User, "Magazine doesn't fit.");
-                return false;
-            }
-
-            return InsertMagazine(eventArgs.AttackWith);
+            return false;
         }
 
         private void _magazineAmmoCountChanged()
