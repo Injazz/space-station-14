@@ -1,0 +1,39 @@
+- type: reagent
+  id: chem.Whiskey
+  name: Whiskey
+  desc: An alcoholic beverage made from fermented grain mash
+
+- type: reagent
+  id: chem.Ale
+  name: Ale
+  desc: A type of beer brewed using a warm fermentation method, resulting in a sweet, full-bodied and fruity taste.
+
+- type: reagent
+  id: chem.Wine
+  name: Wine
+  desc: An alcoholic drink made from fermented grapes
+
+- type: reagent
+  id: chem.Beer
+  name: Beer
+  desc: An alcoholic beverage made from malted grains, hops, yeast, and water.
+
+- type: reagent
+  id: chem.WhiskeyCola
+  name: Whiskey Cola
+  desc: Whiskey, mixed with cola. Surprisingly refreshing.
+
+- type: reagent
+  id: chem.ManlyDorf
+  name: The Manly Dorf
+  desc: A dwarfy concoction made from ale and beer. Intended for stout dwarves only.
+
+- type: reagent
+  id: chem.SyndicateBomb
+  name: Syndicate Bomb
+  desc: Whiskey cola and beer. Figuratively explosive.
+
+- type: reagent
+  id: chem.AcidSpit
+  name: Acid Spit
+  desc: Wine and sulfuric acid. You hope the wine has neutralized the acid.

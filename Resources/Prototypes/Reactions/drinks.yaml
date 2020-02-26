@@ -1,0 +1,40 @@
+- type: reaction
+  id: react.WhiskeyCola
+  reactants:
+    chem.Whiskey:
+      amount: 2
+    chem.Cola:
+      amount: 1
+  products:
+    chem.WhiskeyCola: 3
+
+- type: reaction
+  id: react.ManlyDorf
+  reactants:
+    chem.Beer:
+      amount: 1
+    chem.Ale:
+      amount: 2
+  products:
+    chem.ManlyDorf: 3
+
+- type: reaction
+  id: react.SyndicateBomb
+  reactants:
+    chem.WhiskeyCola:
+      amount: 1
+    chem.Beer:
+      amount: 1
+  products:
+    chem.SyndicateBomb: 2
+
+- type: reaction
+  id: react.AcidSpit
+  reactants:
+    chem.Wine:
+      amount: 5
+    chem.H2SO4:
+      amount: 1
+  products:
+    chem.AcidSpit: 6
+
